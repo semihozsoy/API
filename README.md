@@ -45,3 +45,20 @@ extension MoviesEndpoint: Endpoint {
     }
 }
 ```
+```swift
+import API
+extension ViewController: HTTPClient {
+    
+    func getAllMovies() {
+        sendRequest(endpoint: MoviesEndpoint.topRated, responseModel: Movies.self) { [weak self] result in
+            switch result {
+            case let .success(response):
+                break
+            case let .failure(error):
+                break
+            }
+        }
+    }
+}
+```
+
