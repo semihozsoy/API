@@ -23,6 +23,7 @@ extension Endpoint {
     }
     
     public var host: String {
-        return "api.themoviedb.org"
+        /// host should be which url we want to implement
+        return ""
     }
 }
