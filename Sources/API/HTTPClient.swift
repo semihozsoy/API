@@ -61,9 +61,21 @@ public extension HTTPClient {
         urlComponents.path = endpoint.path
         
         if let queryItems = endpoint.queryItems {
-            urlComponents.queryItems = endpoint.queryItems
+            urlComponents.queryItems = convertQueryItems(queryItems)
         }
         
         return urlComponents
     }
+    
+    private func convertQueryItems(_ stringDictionary: [String: String]?) -> [URLQueryItem] {
+            var queryItems: [URLQueryItem] = []
+            for (key,value) in stringDictionary ?? [:] {
+                if let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                   let encodedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                    let queryItem = URLQueryItem(name: encodedKey, value: encodedValue)
+                    queryItems.append(queryItem)
+                }
+            }
+            return queryItems
+        }
 }
